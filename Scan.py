@@ -17,11 +17,6 @@ def GetData():
     r = requests.get(url, headers=headers)
     return r.text
 
-def GetUnitFromTdTag(td):
-    line = re.sub(r'<\S+', '', str(td))                              # Remove <td> </td> tag
-    u = re.sub(r'style="background-color: #EAF0FE;">','', line)   # Remove Style
-    return u.strip()
-
 def GrepTag():
     html_doc = GetData()
     soup = BeautifulSoup(html_doc, "html.parser")
@@ -31,12 +26,12 @@ def GrepTag():
 def PrintData():
     fin = GrepTag()
     print '{0}'.format(Symbol)
-    print 'Assets           {0}'.format(GetUnitFromTdTag(fin[1]))
-    print 'Liabilities      {0}'.format(GetUnitFromTdTag(fin[2]))
-    print 'Equity           {0}'.format(GetUnitFromTdTag(fin[3]))
-    print 'Paid-up Capital  {0}'.format(GetUnitFromTdTag(fin[4]))
-    print 'ROE(%)           {0}'.format(GetUnitFromTdTag(fin[10]))
-    print 'Last Price(Bath) {0}'.format(GetUnitFromTdTag(fin[12]))
+    print 'Assets           {0}'.format(fin[1].string.strip())
+    print 'Liabilities      {0}'.format(fin[2].string.strip())
+    print 'Equity           {0}'.format(fin[3].string.strip())
+    print 'Paid-up Capital  {0}'.format(fin[4].string.strip())
+    print 'ROE(%)           {0}'.format(fin[10].string.strip())
+    print 'Last Price(Bath) {0}'.format(fin[12].string.strip())
 
 if __name__ == '__main__':
     Symbol = 'CHO'
