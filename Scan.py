@@ -34,6 +34,18 @@ def PrintData():
     print 'ROE(%)           {0}'.format(fin[10].string.strip())
     print 'Last Price(Bath) {0}'.format(fin[12].string.strip())
 
+def Store():
+    fin = GrepTag()
+    stock = {"Symbol": Symbol, 
+            "Assets": fin[1].string.strip(),
+            "Liabilities": fin[2].string.strip(), 
+            "Equity": fin[3].string.strip(),
+            "Paid-up Capital": fin[4].string.strip(),
+            "ROE": fin[10].string.strip(),
+            "Last Price": fin[12].string.strip()}
+    db = MongoCli.Connect()
+    MongoCli.Insert(db, stock)
+
 if __name__ == '__main__':
-    Symbol = 'CHO'
-    PrintData()
+    Symbol = 'JAS'
+    Store()
