@@ -13,3 +13,9 @@ def Insert(db, stock):
     except Exception, e:
         print str(e)
 
+def FindAll(db):
+    try:
+        return db.stocks.find()
+    except Exception, e:
+        print str(e)
+

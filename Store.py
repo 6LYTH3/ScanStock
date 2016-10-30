@@ -25,6 +25,11 @@ def GrepTag():
     td = soup.find_all("td", style="background-color: #EAF0FE;")
     return td
 
+def ConvertToIntBy(str):
+    i = re.sub(',','',str.string.strip())
+    return float(i)
+
+
 def PrintData():
     fin = GrepTag()
     print '{0}'.format(Symbol)
@@ -38,22 +43,22 @@ def PrintData():
 def Store():
     fin = GrepTag()
     stock = {"Symbol": Symbol, 
-            "Assets": fin[1].string.strip(),
-            "Liabilities": fin[2].string.strip(), 
-            "Equity": fin[3].string.strip(),
-            "Paid-up Capital": fin[4].string.strip(),
-            "Revenue": fin[5].string.strip(),
-            "Net Profit": fin[6].string.strip(),
-            "EPS": fin[7].string.strip(),
-            "ROA": fin[9].string.strip(),
-            "ROE": fin[10].string.strip(),
-            "Margin": fin[11].string.strip(),
-            "Last Price": fin[12].string.strip(),
-            "Market Cap": fin[13].string.strip(),
-            "PE": fin[15].string.strip(),
-            "PBV": fin[16].string.strip(),
-            "Book Value": fin[17].string.strip(),
-            "Yield": fin[18].string.strip()}
+            "Assets": ConvertToIntBy(fin[1]),
+            "Liabilities": ConvertToIntBy(fin[2]), 
+            "Equity": ConvertToIntBy(fin[3]),
+            "Paid-up Capital": ConvertToIntBy(fin[4]),
+            "Revenue": ConvertToIntBy(fin[5]),
+            "Net Profit": ConvertToIntBy(fin[6]),
+            "EPS": ConvertToIntBy(fin[7]),
+            "ROA": ConvertToIntBy(fin[9]),
+            "ROE": ConvertToIntBy(fin[10]),
+            "Margin": ConvertToIntBy(fin[11]),
+            "Last Price": ConvertToIntBy(fin[12]),
+            "Market Cap": ConvertToIntBy(fin[13]),
+            "PE": ConvertToIntBy(fin[15]),
+            "PBV": ConvertToIntBy(fin[16]),
+            "Book Value": ConvertToIntBy(fin[17]),
+            "Yield": ConvertToIntBy(fin[18])}
     db = MongoCli.Connect()
     MongoCli.Insert(db, stock)
 
