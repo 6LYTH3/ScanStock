@@ -19,8 +19,9 @@ def GetData():
     return r.text
 
 def GrepTag():
-    html_doc = GetData()
-    soup = BeautifulSoup(html_doc, "html.parser")
+    # html_doc = GetData()
+    # soup = BeautifulSoup(html_doc, "html.parser")
+    soup = BeautifulSoup(open("raw.html"), "html.parser")
     td = soup.find_all("td", style="background-color: #EAF0FE;")
     return td
 
@@ -41,8 +42,18 @@ def Store():
             "Liabilities": fin[2].string.strip(), 
             "Equity": fin[3].string.strip(),
             "Paid-up Capital": fin[4].string.strip(),
+            "Revenue": fin[5].string.strip(),
+            "Net Profit": fin[6].string.strip(),
+            "EPS": fin[7].string.strip(),
+            "ROA": fin[9].string.strip(),
             "ROE": fin[10].string.strip(),
-            "Last Price": fin[12].string.strip()}
+            "Margin": fin[11].string.strip(),
+            "Last Price": fin[12].string.strip(),
+            "Market Cap": fin[13].string.strip(),
+            "PE": fin[15].string.strip(),
+            "PBV": fin[16].string.strip(),
+            "Book Value": fin[17].string.strip(),
+            "Yield": fin[18].string.strip()}
     db = MongoCli.Connect()
     MongoCli.Insert(db, stock)
 
